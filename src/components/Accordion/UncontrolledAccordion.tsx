@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useReducer} from "react";
 
 type AccordionTitlePropsType = {
     title: string
@@ -26,12 +26,33 @@ function AccordionBody() {
     );
 }
 
+type ActionType = {
+    type: string
+}
+
+const reducer = (state: boolean, action: ActionType) => {
+    switch(action.type) {
+        case "TOGGLE-COLLAPSED":
+            return !state
+        default:
+            throw new Error("Incorrect action type")
+    }
+
+
+    return state
+}
+
+const toggleCollapsedActionCreator = () => ({
+    type: "TOGGLE-COLLAPSED"
+})
+
+
 function UncontrolledAccordion(props: AccordionPropsType) {
     console.log("UncontrolledAccordion rendering");
+    let [collapsed, dispatch] = useReducer(reducer, false)
 
-    let [collapsed, setCollapsed] = useState(false);
     const toggleAccordionBody = () => {
-        setCollapsed(!collapsed);
+        dispatch(toggleCollapsedActionCreator())
     }
 
     return (

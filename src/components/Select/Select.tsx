@@ -13,8 +13,9 @@ export type SelectProps = {
 }
 
 export const Select: FC<SelectProps> = (props) => {
+
     const [activeMode, setActiveMode] = useState<boolean>(false);
-    const [hoveredElementValue, setHoveredElementValue] = useState<any>(props.value);
+    const [hoveredElementValue, setHoveredElementValue] = useState<string>(props.value);
 
     const selectedItem = props.items.find(i => i.value === props.value);
     const hoveredItem = props.items.find(i => i.value === hoveredElementValue);
